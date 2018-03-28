@@ -498,17 +498,19 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
     }
     
     fileprivate func getCloseButtonFrame(_ avaiableSize: CGSize) -> CGRect {
-        return CGRect(x: 0, y: 0, width: 50, height: 50)
+        let resultY: CGFloat = isDeviceIphoneX() ? 44 : 0
+        return CGRect(x: 0, y: resultY, width: 50, height: 50)
     }
     
     fileprivate func getActionButtonFrame(_ avaiableSize: CGSize) -> CGRect {
-        return CGRect(x: avaiableSize.width - 50, y: 0, width: 50, height: 50)
+        let resultY: CGFloat = isDeviceIphoneX() ? 44 : 0
+        return CGRect(x: avaiableSize.width - 50, y: resultY, width: 50, height: 50)
     }
     
     fileprivate func getCustomButtonFrame(_ avaiableSize: CGSize, forIndex index: Int) -> CGRect {
         let position = index + 2
-        
-        return CGRect(x: avaiableSize.width - CGFloat(50 * position), y: 0, width: 50, height: 50)
+        let resultY: CGFloat = isDeviceIphoneX() ? 44 : 0
+        return CGRect(x: avaiableSize.width - CGFloat(50 * position), y: resultY, width: 50, height: 50)
     }
     
     fileprivate func updateCaptionText () {
@@ -676,4 +678,12 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
         
         sourceViewController.present(self, animated: type.animated, completion: nil)
     }
+    
+    fileprivate func isDeviceIphoneX() -> Bool {
+        if #available(iOS 11.0, *) {
+            return UIApplication.shared.keyWindow?.safeAreaInsets.top != 0
+        }
+        return false
+    }
+
 }
